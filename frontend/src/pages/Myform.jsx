@@ -32,7 +32,6 @@ const Myform = () => {
         ["People", orderData.people],
         ["Restaurant", orderData.restaurant],
         ["Dishes", orderData.dishes],
-        ["Servings", orderData.servings],
       ];
       setCsvData(csvContent);
 
@@ -65,12 +64,25 @@ const Myform = () => {
   }, []);
 
   return (
-    <div className="bg-gradient-to-r from-slate-100 to-red-600 w-full h-screen min-h-full flex flex-col justify-center py-36 sm:px-6 lg:px-8 z-100 mf:h-screen">
-      <div></div>
+    <div className="bg-black w-full h-screen min-h-full flex flex-col justify-center py-36 sm:px-6 lg:px-8 z-100 mf:h-screen">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-          {titles[page]}
-        </h1>
+        <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+          <ul className="flex flex-wrap -mb-px">
+            {["Step 1", "Step 2", "Step 3", "Review"].map((step, index) => (
+              <li className="me-2" key={index}>
+                <span
+                  className={`inline-block p-4 ${
+                    page === index
+                      ? "text-blue-600 border-b-2 border-blue-600 dark:text-blue-500 dark:border-blue-500"
+                      : "border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                  } rounded-t-lg`}
+                >
+                  {step}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
