@@ -1,6 +1,6 @@
 import axios from "axios";
+import { API_ENDPOINT } from "../constants/endpoint";
 
-const ENDPOINT = 'http://localhost:4000'
+export const getAllDishes = async () => await axios.get(API_ENDPOINT +"/alldishes");
 
-export const getAllDishes = async () => await axios.get(ENDPOINT +"/alldishes");
-
+export const addPreOrder = async (sendData) => await axios.post(API_ENDPOINT + "/addmeal", sendData);

@@ -1,12 +1,13 @@
 import React from "react";
 
 const Review = ({ orderData }) => {
-    
+  console.log("orderData", orderData);
+
   return (
     <div className="space-y-6">
       <div className="mt-1">
         <label className="block text-sm font-medium text-gray-700 pb-2">
-        meal
+          meal
         </label>
         <input
           value={orderData.meal}
@@ -17,7 +18,7 @@ const Review = ({ orderData }) => {
       </div>
       <div className="mt-1">
         <label className="block text-sm font-medium text-gray-700 pb-2">
-        people
+          people
         </label>
         <input
           value={orderData.people}
@@ -28,7 +29,7 @@ const Review = ({ orderData }) => {
       </div>
       <div className="mt-1">
         <label className="block text-sm font-medium text-gray-700 pb-2">
-        restaurant
+          restaurant
         </label>
         <input
           value={orderData.restaurant}
@@ -39,7 +40,7 @@ const Review = ({ orderData }) => {
       </div>
       <div className="mt-1">
         <label className="block text-sm font-medium text-gray-700 pb-2">
-        dishes
+          dishes
         </label>
         <input
           value={orderData.dishes}
@@ -50,7 +51,7 @@ const Review = ({ orderData }) => {
       </div>
       <div className="mt-1">
         <label className="block text-sm font-medium text-gray-700 pb-2">
-        servings
+          servings
         </label>
         <input
           value={orderData.servings}

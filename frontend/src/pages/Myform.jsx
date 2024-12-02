@@ -1,35 +1,34 @@
 import { useEffect, useState } from "react";
-import Step1 from "../formviews/Step1";
-import Step2 from "../formviews/Step2";
-import Step3 from "../formviews/Step3";
-import Review from "../formviews/Review";
+import Step1 from "../components/Step1";
+import Step2 from "../components/Step2";
+import Step3 from "../components/Step3";
+import Review from "../components/Review";
 import { useDispatch } from "react-redux";
 import { getDishes } from "../slices/DishSlice";
+import { addPreOrder } from "../APIs/api_path";
+import { titles } from "../constants/endpoint";
 
 const Myform = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
   const [orderData, setOrderData] = useState({
     meal: "",
-    people: "",
+    people: 1,
     restaurant: "",
     dishes: "",
-    servings: "",
+    servings: 1,
   });
 
   const submitOrder = async (e) => {
-    const { meal, people, restaurant, dishes, servings } = orderData;
     e.preventDefault();
     try {
-      // API Call
+      await addPreOrder(orderData)
       alert("order added");
     } catch (error) {
       alert("order failed");
       console.log(error);
     }
   };
-
-  const titles = ["Step 1", "Step 2", "Step 3", "Review"];
 
   const PageDisplay = () => {
     if (page === 0) {
@@ -74,8 +73,8 @@ const Myform = () => {
             <button
               onClick={(e) => {
                 if (page === titles.length - 1) {
-                  alert("Form Submitted");
                   submitOrder(e);
+                  alert("Pre-Order Submitted");
                   console.log(orderData);
                 } else {
                   setPage((currPage) => currPage + 1);

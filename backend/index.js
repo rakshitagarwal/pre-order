@@ -20,7 +20,6 @@ app.get("/test", (req, res) => {
   res.json("Test Works");
 });
 
-
 app.post("/dishadd", async (req, res) => {
   const { id, name, restaurant, availableMeals } = req.body;
   try {
@@ -55,7 +54,7 @@ app.post("/addmeal", async (req, res) => {
       dishes,
       servings,
     });
-    res.json(mealInfo);
+    res.status(201).json(mealInfo);
   } catch (error) {
     res.status(400).json(error);
   }

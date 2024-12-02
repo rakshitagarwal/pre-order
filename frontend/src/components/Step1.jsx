@@ -3,7 +3,7 @@ const Step1 = ({ orderData, setOrderData }) => {
     <div className="space-y-6">
       <div className="mt-1">
         <label className="block text-sm font-medium text-gray-700 pb-2">
-          Please select a meal
+          Please Select a meal    <span className="text-red-500 font-bold text-lg">*</span>
         </label>
         <select
           id="meals"
@@ -22,13 +22,17 @@ const Step1 = ({ orderData, setOrderData }) => {
 
       <div className="mt-1">
         <label className="block text-sm font-medium text-gray-700 pb-2">
-          Please Enter Number of people
+          Please Enter Number of people    <span className="text-red-500 font-bold text-lg">*</span>
         </label>
         <input
-          onChange={(e) => setOrderData({ ...orderData, people: e.target.value })}
-          value={orderData.people || ""}
+          onChange={(e) =>
+            setOrderData({ ...orderData, people: Number(e.target.value) })
+          }
+          value={orderData.people}
           type="number"
           id="number"
+          min={1}
+          max={10}
           className="block h-14 w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
         />
       </div>

@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getDishes } from "../slices/DishSlice";
+import { useSelector } from "react-redux";
 
 const Step3 = ({ orderData, setOrderData }) => {
-  const dispatch = useDispatch();
   const restaurantSelected = orderData.restaurant;
   const [dishChoices, setDishChoices] = useState([]);
   const { data } = useSelector((store) => store.dishes);
 
   useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(getDishes());
-    };
-    fetchData();
     const choices = data.data
       .filter((dish) => dish.restaurant === restaurantSelected)
       .map((dish) => dish.name);
@@ -27,7 +21,7 @@ const Step3 = ({ orderData, setOrderData }) => {
         </label>
         <select
           id="dishes"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
           onChange={(e) =>
             setOrderData({ ...orderData, dishes: e.target.value })
           }
@@ -48,7 +42,7 @@ const Step3 = ({ orderData, setOrderData }) => {
         </label>
         <input
           onChange={(e) =>
-            setOrderData({ ...orderData, servings: e.target.value })
+            setOrderData({ ...orderData, servings: Number(e.target.value) })
           }
           value={orderData.servings}
           type="number"

@@ -5,7 +5,7 @@ const MealSchema = new Schema({
   meal: String,
   people: Number,
   restaurant: String,
-  dishes: [String],
+  dishes: String,
   servings: Number,
 });
 
