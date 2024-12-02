@@ -1,11 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const Meal = require('./models/Meal')
-require('dotenv').config()
-const { mongoose } = require('mongoose');
+require("dotenv").config();
+const { mongoose } = require("mongoose");
+const Dishes = require("./models/Dishes");
+const Meal = require("./models/Meal");
 
-app.use(express.json())
+app.use(express.json());
 app.use(
   cors({
     credentials: true,
@@ -19,4 +20,47 @@ app.get("/test", (req, res) => {
   res.json("Test Works");
 });
 
-app.listen(4000);
+
+app.post("/dishadd", async (req, res) => {
+  const { id, name, restaurant, availableMeals } = req.body;
+  try {
+    const dishInfo = await Dishes.create({
+      id,
+      name,
+      restaurant,
+      availableMeals,
+    });
+    res.json(dishInfo);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
+app.get("/alldishes", async (req, res) => {
+  try {
+    const dishInfo = await Dishes.find();
+    res.json(dishInfo);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
+app.post("/addmeal", async (req, res) => {
+  const { meal, people, restaurant, dishes, servings } = req.body;
+  try {
+    const mealInfo = await Meal.create({
+      meal,
+      people,
+      restaurant,
+      dishes,
+      servings,
+    });
+    res.json(mealInfo);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
+app.listen(4000, () => {
+  console.log("Server running on http://localhost:4000");
+});

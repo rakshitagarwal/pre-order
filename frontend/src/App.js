@@ -1,10 +1,14 @@
-import './App.css';
+import axios from "axios";
+import Myform from "./pages/Myform";
+
+axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.withCredentials = true
 
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-    Hello world!
-  </h1>
+    <>
+     <Myform />
+    </>
   );
 }
 
