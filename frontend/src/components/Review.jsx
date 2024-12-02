@@ -1,64 +1,60 @@
 import React from "react";
 
 const Review = ({ orderData }) => {
-  console.log("orderData", orderData);
-
   return (
     <div className="space-y-6">
       <div className="mt-1">
         <label className="block text-sm font-medium text-gray-700 pb-2">
-          meal
+          Meal
         </label>
-        <input
-          value={orderData.meal}
-          type="text"
-          id="firstName"
-          className="block h-14 w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-        />
+        <div
+          id="meal"
+          className="h-14 w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm bg-gray-100 text-gray-700 flex items-center"
+        >
+          {orderData.meal || "Not selected"}
+        </div>
       </div>
       <div className="mt-1">
         <label className="block text-sm font-medium text-gray-700 pb-2">
-          people
+          People
         </label>
-        <input
-          value={orderData.people}
-          type="text"
-          id="firstName"
-          className="block h-14 w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-        />
+        <div
+          id="people"
+          className="h-14 w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm bg-gray-100 text-gray-700 flex items-center"
+        >
+          {orderData.people}
+        </div>
       </div>
       <div className="mt-1">
         <label className="block text-sm font-medium text-gray-700 pb-2">
-          restaurant
+          Restaurant
         </label>
-        <input
-          value={orderData.restaurant}
-          type="text"
-          id="firstName"
-          className="block h-14 w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-        />
+        <div
+          id="restaurant"
+          className="h-14 w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm bg-gray-100 text-gray-700 flex items-center"
+        >
+          {orderData.restaurant || "Not selected"}
+        </div>
       </div>
       <div className="mt-1">
         <label className="block text-sm font-medium text-gray-700 pb-2">
-          dishes
+          Dishes
         </label>
-        <input
-          value={orderData.dishes}
-          type="text"
-          id="firstName"
-          className="block h-14 w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-        />
-      </div>
-      <div className="mt-1">
-        <label className="block text-sm font-medium text-gray-700 pb-2">
-          servings
-        </label>
-        <input
-          value={orderData.servings}
-          type="text"
-          id="firstName"
-          className="block h-14 w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-        />
+        <ul
+          id="dishes"
+          className="space-y-2 border border-gray-300 p-3 rounded-md bg-gray-100 text-gray-700"
+        >
+          {orderData.dishes.length > 0 ? (
+            orderData.dishes.map((entry, index) => (
+              <li key={index} className="flex justify-between">
+                <span>{entry.name}</span>
+                <span>({entry.servings} servings)</span>
+              </li>
+            ))
+          ) : (
+            <li>No dishes selected</li>
+          )}
+        </ul>
       </div>
     </div>
   );

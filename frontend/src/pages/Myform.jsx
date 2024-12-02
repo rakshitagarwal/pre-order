@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Step1 from "../components/Step1";
 import Step2 from "../components/Step2";
 import Step3 from "../components/Step3";
@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { getDishes } from "../slices/DishSlice";
 import { addPreOrder } from "../APIs/api_path";
 import { titles } from "../constants/endpoint";
+import { CSVLink } from "react-csv";
 
 const Myform = () => {
   const dispatch = useDispatch();
@@ -15,15 +16,29 @@ const Myform = () => {
     meal: "",
     people: 1,
     restaurant: "",
-    dishes: "",
-    servings: 1,
+    dishes: [],
   });
+  const csvLinkRef = useRef();
+  const [csvData, setCsvData] = useState([]);
 
   const submitOrder = async (e) => {
     e.preventDefault();
     try {
-      await addPreOrder(orderData)
+      await addPreOrder(orderData);
       alert("order added");
+      const csvContent = [
+        ["Field", "Value"],
+        ["Meal", orderData.meal],
+        ["People", orderData.people],
+        ["Restaurant", orderData.restaurant],
+        ["Dishes", orderData.dishes],
+        ["Servings", orderData.servings],
+      ];
+      setCsvData(csvContent);
+
+      setTimeout(() => {
+        csvLinkRef.current.link.click();
+      }, 100);
     } catch (error) {
       alert("order failed");
       console.log(error);
@@ -47,7 +62,7 @@ const Myform = () => {
       await dispatch(getDishes());
     };
     fetchData();
-  },[]);
+  }, []);
 
   return (
     <div className="bg-gradient-to-r from-slate-100 to-red-600 w-full h-screen min-h-full flex flex-col justify-center py-36 sm:px-6 lg:px-8 z-100 mf:h-screen">
@@ -74,8 +89,6 @@ const Myform = () => {
               onClick={(e) => {
                 if (page === titles.length - 1) {
                   submitOrder(e);
-                  alert("Pre-Order Submitted");
-                  console.log(orderData);
                 } else {
                   setPage((currPage) => currPage + 1);
                 }
@@ -85,6 +98,12 @@ const Myform = () => {
               {page === titles.length - 1 ? "Submit" : "Next"}
             </button>
           </div>
+          <CSVLink
+            data={csvData}
+            filename="order_data.csv"
+            className="hidden"
+            ref={csvLinkRef}
+          />
         </div>
       </div>
     </div>

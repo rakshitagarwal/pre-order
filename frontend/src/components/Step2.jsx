@@ -18,7 +18,8 @@ const Step2 = ({ orderData, setOrderData }) => {
     <div className="space-y-6">
       <div className="mt-1">
         <label className="block text-sm font-medium text-gray-700 pb-2">
-          Please Select a Restaurant    <span className="text-red-500 font-bold text-lg">*</span>
+          Please Select a Restaurant{" "}
+          <span className="text-red-500 font-bold text-lg">*</span>
         </label>
         <select
           id="restaurant"
