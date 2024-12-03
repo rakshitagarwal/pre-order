@@ -20,15 +20,10 @@ app.get("/test", (req, res) => {
   res.json("Test Works");
 });
 
-app.post("/dishadd", async (req, res) => {
-  const { id, name, restaurant, availableMeals } = req.body;
+app.post("/dishesadd", async (req, res) => {
+  const { dishes } = req.body;
   try {
-    const dishInfo = await Dishes.create({
-      id,
-      name,
-      restaurant,
-      availableMeals,
-    });
+    const dishInfo = await Dishes.insertMany(dishes)
     res.json(dishInfo);
   } catch (error) {
     res.status(400).json(error);
