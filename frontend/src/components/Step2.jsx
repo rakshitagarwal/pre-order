@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
-const Step2 = ({ orderData, setOrderData }) => {
-  const mealSelected = orderData.meal;
+const Step2 = ({ orderData, setOrderData, allData }) => {
   const [restaurants, setRestaurants] = useState([]);
-  const { data } = useSelector((store) => store.dishes);
 
   useEffect(() => {
-    const restaurants = data.data
-      .filter((dish) => dish.availableMeals.includes(mealSelected))
-      .map((dish) => dish.restaurant);
-    const uniqueRestaurants = [...new Set(restaurants)];
-    setRestaurants(uniqueRestaurants);
-  }, [mealSelected]);
+    if (orderData.meal) {
+      const restaurantsList = allData.data
+        .filter((dish) => dish.availableMeals.includes(orderData.meal))
+        .map((dish) => dish.restaurant);
+      setRestaurants([...new Set(restaurantsList)]);
+    }
+  }, [orderData.meal, allData]);
 
   return (
     <div className="space-y-6">
