@@ -20,7 +20,7 @@ const Myform = () => {
   const [dishChoices, setDishChoices] = useState([]);
   const { data } = useSelector((store) => store.dishes);
 
-  const totalServings = orderData.dishes.filter(dish=> dish.name.trim() !== '').reduce((total, dish) => total + dish.servings, 0);
+  const totalServings = orderData.dishes.filter(dish => dish.name.trim() !== '').reduce((total, dish) => total + dish.servings, 0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -140,6 +140,9 @@ const Myform = () => {
         </div>
       );
     } else if (page === 2) {
+      const selectedDishes = orderData.dishes.filter(dish => dish.name.trim() !== '').map(dish => dish.name);
+      const availableChoices = dishChoices.filter((name) => !selectedDishes.includes(name));
+
       return (
         <div className="flex flex-col gap-4">
           {(orderData.dishes || []).map((dish, index) => (
@@ -150,23 +153,27 @@ const Myform = () => {
                 </label>
                 <select
                   id={`dish-${index}`}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5 "
                   onChange={(e) =>
-                    setOrderData({
-                      ...orderData,
-                      dishes: orderData.dishes.map((d, i) =>
-                        i === index ? { ...d, name: e.target.value } : d
-                      ),
+                    setOrderData((prevState) => {
+                      const newDishes = [...prevState.dishes];
+                      newDishes[index].name = e.target.value;
+                      return {
+                        ...prevState,
+                        dishes: newDishes,
+                      };
                     })
                   }
                   value={dish.name || ""}
                 >
                   <option value="">---</option>
-                  {dishChoices.map((name, i) => (
-                    <option key={i} value={name}>
-                      {name}
-                    </option>
-                  ))}
+                  {dishChoices
+                    .filter((name) => !selectedDishes.includes(name) || name === dish.name)
+                    .map((name, i) => (
+                      <option key={i} value={name}>
+                        {name}
+                      </option>
+                    ))}
                 </select>
               </div>
 
@@ -176,11 +183,13 @@ const Myform = () => {
                 </label>
                 <input
                   onChange={(e) =>
-                    setOrderData({
-                      ...orderData,
-                      dishes: orderData.dishes.map((d, i) =>
-                        i === index ? { ...d, servings: Number(e.target.value) } : d
-                      ),
+                    setOrderData((prevState) => {
+                      const newDishes = [...prevState.dishes];
+                      newDishes[index].servings = Number(e.target.value);
+                      return {
+                        ...prevState,
+                        dishes: newDishes,
+                      };
                     })
                   }
                   value={dish.servings || 1}
@@ -191,21 +200,28 @@ const Myform = () => {
               </div>
             </div>
           ))}
-
-          <div className="pt-2 flex items-center">
-            <button
-              type="button"
-              className="bg-blue-500 text-white p-2 rounded-lg"
-              onClick={() => {
-                setOrderData({
-                  ...orderData,
-                  dishes: [...orderData.dishes, { name: "", servings: 1 }],
-                });
-              }}
-            >
-              Add Dish
-            </button>
-          </div>
+          {
+            availableChoices.length > 0 && (
+              <div className="pt-2 flex items-center">
+                <button
+                  type="button"
+                  className="bg-blue-500 text-white p-2 rounded-lg"
+                  onClick={() => {
+                    setOrderData((prevState) => {
+                      const newDishes = [...prevState.dishes];
+                      newDishes.push({ name: "", servings: 1 });
+                      return {
+                        ...prevState,
+                        dishes: newDishes,
+                      };
+                    });
+                  }}
+                >
+                  Add
+                </button>
+              </div>
+            )
+          }
         </div>
       );
     } else {
