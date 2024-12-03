@@ -109,7 +109,7 @@ const Review = ({ values, prevPage }) => {
               Submit
             </button>
           </div>
-            <CSVLink
+          <CSVLink
             data={csvData}
             filename="order_data.csv"
             className="hidden"

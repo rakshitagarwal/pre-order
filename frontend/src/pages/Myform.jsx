@@ -24,10 +24,28 @@ const Myform = () => {
 
   const PageDisplay = (formValues) => {
     switch (formValues.page) {
-      case 0: return <Step1 values={formValues} nextPage={handleNextPage} />;
-      case 1: return <Step2 values={formValues} nextPage={handleNextPage} prevPage={handlePrevPage} allData={data} />; 
-      case 2: return <Step3 values={formValues} nextPage={handleNextPage} prevPage={handlePrevPage} allData={data} />; 
-      default: return <Review values={formValues} prevPage={handlePrevPage} />;
+      case 0:
+        return <Step1 values={formValues} nextPage={handleNextPage} />;
+      case 1:
+        return (
+          <Step2
+            values={formValues}
+            nextPage={handleNextPage}
+            prevPage={handlePrevPage}
+            allData={data}
+          />
+        );
+      case 2:
+        return (
+          <Step3
+            values={formValues}
+            nextPage={handleNextPage}
+            prevPage={handlePrevPage}
+            allData={data}
+          />
+        );
+      default:
+        return <Review values={formValues} prevPage={handlePrevPage} />;
     }
   };
 

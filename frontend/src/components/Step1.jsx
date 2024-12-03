@@ -9,7 +9,7 @@ const Step1 = ({ values, nextPage }) => {
         people: values.people || null,
       }}
       validationSchema={step1Schema}
-      onSubmit={(values) => {        
+      onSubmit={(values) => {
         nextPage(values);
       }}
     >

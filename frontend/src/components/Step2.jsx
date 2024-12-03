@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Field, ErrorMessage, Formik, Form } from "formik";
 import { step2Schema } from "../schemas";
 
-const Step2 = ({ values, allData, nextPage , prevPage}) => {
+const Step2 = ({ values, allData, nextPage, prevPage }) => {
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const Step2 = ({ values, allData, nextPage , prevPage}) => {
           </div>
 
           <div className="flex justify-between pt-4">
-          <button
+            <button
               type="button"
               onClick={prevPage}
               className="py-2 px-4 bg-gray-400 text-white rounded-md hover:bg-gray-600"

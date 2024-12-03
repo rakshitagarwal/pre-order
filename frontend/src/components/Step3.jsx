@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Field, ErrorMessage, Formik, Form } from "formik";
 import { step3Schema } from "../schemas";
+import { toast } from "react-toastify";
 
-const Step3 = ({ values, allData, nextPage, prevPage }) => {  
+const Step3 = ({ values, allData, nextPage, prevPage }) => {
   const [dishChoices, setDishChoices] = useState([]);
 
   useEffect(() => {
@@ -14,6 +15,11 @@ const Step3 = ({ values, allData, nextPage, prevPage }) => {
     }
   }, [values.restaurant, allData]);
 
+  const calculateTotalServings = (dishes) =>
+    dishes
+      .filter((dish) => dish.name.trim() !== "")
+      .reduce((total, dish) => total + (parseInt(dish.servings) || 0), 0);
+
   return (
     <Formik
       initialValues={{
@@ -21,6 +27,15 @@ const Step3 = ({ values, allData, nextPage, prevPage }) => {
       }}
       validationSchema={step3Schema}
       onSubmit={(formValues) => {
+        const currentTotalServings = calculateTotalServings(formValues.dishes);
+
+        if (currentTotalServings < values.people) {
+          toast.error("Dishes are less than people.");
+          return;
+        } else if (currentTotalServings > 10) {
+          toast.error("Dishes can't be more than 10.");
+          return;
+        }
         nextPage(formValues);
       }}
     >
