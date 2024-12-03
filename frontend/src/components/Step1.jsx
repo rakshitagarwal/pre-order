@@ -1,4 +1,6 @@
-const Step1 = ({ orderData, setOrderData }) => {
+import { Field, ErrorMessage } from "formik";
+
+const Step1 = ({ values, setFieldValue }) => {
   return (
     <div className="space-y-6">
       <div className="mt-1">
@@ -6,11 +8,11 @@ const Step1 = ({ orderData, setOrderData }) => {
           Please Select a meal{" "}
           <span className="text-red-500 font-bold text-lg">*</span>
         </label>
-        <select
-          id="meals"
-          onChange={(e) => setOrderData({ ...orderData, meal: e.target.value })}
-          value={orderData.meal || ""}
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+        <Field
+          as="select"
+          name="meal"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          onChange={(e) => setFieldValue("meal", e.target.value)}
         >
           <option value="" disabled>
             ---
@@ -18,7 +20,8 @@ const Step1 = ({ orderData, setOrderData }) => {
           <option value="breakfast">Breakfast</option>
           <option value="lunch">Lunch</option>
           <option value="dinner">Dinner</option>
-        </select>
+        </Field>
+        <ErrorMessage name="meal" component="div" className="text-red-500 text-sm mt-1" />
       </div>
 
       <div className="mt-1">
@@ -26,17 +29,15 @@ const Step1 = ({ orderData, setOrderData }) => {
           Please Enter Number of people{" "}
           <span className="text-red-500 font-bold text-lg">*</span>
         </label>
-        <input
-          onChange={(e) =>
-            setOrderData({ ...orderData, people: Number(e.target.value) })
-          }
-          value={orderData.people}
+        <Field
           type="number"
-          id="number"
+          name="people"
           min={1}
           max={10}
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          onChange={(e) => setFieldValue("people", Number(e.target.value))} 
         />
+        <ErrorMessage name="people" component="div" className="text-red-500 text-sm mt-1" />
       </div>
     </div>
   );
