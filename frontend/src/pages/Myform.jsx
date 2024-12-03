@@ -20,12 +20,14 @@ const Myform = () => {
   const [dishChoices, setDishChoices] = useState([]);
   const { data } = useSelector((store) => store.dishes);
 
+  const totalServings = orderData.dishes.filter(dish=> dish.name.trim() !== '').reduce((total, dish) => total + dish.servings, 0);
+
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(getDishes());
     };
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (orderData.meal) {
@@ -312,6 +314,10 @@ const Myform = () => {
                 }
                 if (page === 2 && orderData.dishes[0].name === '') {
                   alert("Please select a dish before proceeding to the next step.");
+                  return;
+                }
+                if (page === 2 && (totalServings > 10 || totalServings < orderData.people)) {
+                  alert("total number of dishes issue");
                   return;
                 }
                 if (page === titles.length - 1) {
