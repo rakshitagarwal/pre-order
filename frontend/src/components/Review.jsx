@@ -2,7 +2,7 @@ import React from "react";
 
 const Review = ({ values }) => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       <div className="mt-1">
         <label className="block text-sm font-medium text-gray-700 pb-1">
           Meal

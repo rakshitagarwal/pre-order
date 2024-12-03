@@ -10,7 +10,7 @@ const Step2 = ({ values, allData }) => {
       .map((dish) => dish.restaurant);
     const uniqueRestaurants = [...new Set(restaurantsList)];
     setRestaurants(uniqueRestaurants);
-  }, []);
+  }, [values.meal, allData]);
 
   return (
     <div className="space-y-6">

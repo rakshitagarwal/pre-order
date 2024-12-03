@@ -80,7 +80,7 @@ const Myform = () => {
           toast("Please select a meal first");
           return;
         }
-        if (values.page === 0 && values.people === null) {
+        if (values.page === 0 && (values.people === null || values.people === 0)) {
           toast("Please enter people coming");
           return;
         }
@@ -130,37 +130,29 @@ const Myform = () => {
             <div className="bg-[#FAEAEB] py-4 px-4 shadow sm:rounded-lg sm:px-10">
               <Form>
                 <div>{PageDisplay(values, setFieldValue)}</div>
-                <div className="flex flex-row gap-3 pt-4">
+                <div class="grid grid-cols-2 gap-4 pt-4">
+                  <div>
+                {values.page > 0 && (
                   <button
-                    type="button"
-                    disabled={values.page === 0}
-                    onClick={() => {
-                      setFieldValue("page", values.page - 1);
-                    }}
-                    className="flex cursor-pointer w-full justify-center rounded-md border bg-red-400 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 "
+                  type="button"
+                  onClick={() => {
+                    setFieldValue("page", values.page - 1);
+                  }}
+                  className="flex cursor-pointer w-full justify-center rounded-md border bg-red-400 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 "
                   >
-                    Previous
-                  </button>
-                  {values.page < titles.length - 1 ? (
-                    <button
-                      type="button"
-                      onClick={handleNext}
-                      className="flex cursor-pointer w-full justify-center rounded-md border bg-red-400 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 "
-                    >
-                      Next
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        submitForm();
-                        setFieldValue("page", 3);
-                      }}
-                      className="flex cursor-pointer w-full justify-center rounded-md border bg-red-400 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 "
-                    >
-                      Submit
+                      Previous
                     </button>
                   )}
+                  </div>
+                  <div>
+                    <button
+                      type="button"
+                      onClick={values.page < titles.length - 1 ? handleNext : () => { submitForm(); setFieldValue("page", 3); }}
+                      className="flex cursor-pointer w-full justify-center rounded-md border bg-red-400 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 "
+                    >
+                      {values.page < titles.length - 1 ? "Next" : "Submit"}
+                    </button>
+                  </div>
                 </div>
                 <CSVLink
                   data={csvData}
