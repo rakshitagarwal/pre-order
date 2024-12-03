@@ -4,6 +4,7 @@ import { getDishes } from "../slices/DishSlice";
 import { addPreOrder } from "../APIs/api_path";
 import { titles } from "../constants/endpoint";
 import { CSVLink } from "react-csv";
+import { toast } from "react-toastify";
 
 const Myform = () => {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ const Myform = () => {
     e.preventDefault();
     try {
       await addPreOrder(orderData);
-      alert("order added");
+      toast("pre-order added successfully");
       const csvContent = [
         ["Field", "Value"],
         ["Meal", orderData.meal],
@@ -65,7 +66,7 @@ const Myform = () => {
         csvLinkRef.current.link.click();
       }, 100);
     } catch (error) {
-      alert("order failed");
+      toast("pre-order failed");
       console.log(error);
     }
   };
@@ -321,19 +322,19 @@ const Myform = () => {
             <button
               onClick={(e) => {
                 if (page === 0 && orderData.meal === '') {
-                  alert("Please select a meal before proceeding to the next step.");
+                  toast("Please select a meal before proceeding to the next step.");
                   return;
                 }
                 if (page === 1 && orderData.restaurant === '') {
-                  alert("Please select a restaurant before proceeding to the next step.");
+                  toast("Please select a restaurant before proceeding to the next step.");
                   return;
                 }
-                if (page === 2 && orderData.dishes[0].name === '') {
-                  alert("Please select a dish before proceeding to the next step.");
+                if (page === 2 && orderData.dishes.some(dish => dish.name === "")) {
+                  toast("Please select dish name before proceeding to the next step.");
                   return;
                 }
                 if (page === 2 && (totalServings > 10 || totalServings < orderData.people)) {
-                  alert("total number of dishes issue");
+                  toast("total number of dishes issue");
                   return;
                 }
                 if (page === titles.length - 1) {
