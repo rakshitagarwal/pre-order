@@ -1,6 +1,6 @@
 import { Field, ErrorMessage } from "formik";
 
-const Step1 = ({ values, setFieldValue }) => {
+const Step1 = ({ setFieldValue }) => {
   return (
     <div className="space-y-6">
       <div className="mt-1">
@@ -11,7 +11,7 @@ const Step1 = ({ values, setFieldValue }) => {
         <Field
           as="select"
           name="meal"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
           onChange={(e) => setFieldValue("meal", e.target.value)}
         >
           <option value="" disabled>
@@ -21,7 +21,11 @@ const Step1 = ({ values, setFieldValue }) => {
           <option value="lunch">Lunch</option>
           <option value="dinner">Dinner</option>
         </Field>
-        <ErrorMessage name="meal" component="div" className="text-red-500 text-sm mt-1" />
+        <ErrorMessage
+          name="meal"
+          component="div"
+          className="text-red-500 text-sm mt-1"
+        />
       </div>
 
       <div className="mt-1">
@@ -34,10 +38,18 @@ const Step1 = ({ values, setFieldValue }) => {
           name="people"
           min={1}
           max={10}
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-          onChange={(e) => setFieldValue("people", Number(e.target.value))} 
+          step={1}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+          onChange={(e) => {
+            const value = Math.floor(Number(e.target.value));
+            setFieldValue("people", value);
+          }}
         />
-        <ErrorMessage name="people" component="div" className="text-red-500 text-sm mt-1" />
+        <ErrorMessage
+          name="people"
+          component="div"
+          className="text-red-500 text-sm mt-1"
+        />
       </div>
     </div>
   );

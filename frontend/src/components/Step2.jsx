@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Field, ErrorMessage } from "formik";
 
-const Step2 = ({ values, setFieldValue, allData }) => {
+const Step2 = ({ values, allData }) => {
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const Step2 = ({ values, setFieldValue, allData }) => {
         <Field
           as="select"
           name="restaurant"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
         >
           <option value="">Select a restaurant</option>
           {restaurants.map((restaurant, index) => (

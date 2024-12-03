@@ -48,8 +48,8 @@ const Myform = () => {
   };
 
   const PageDisplay = (values, setFieldValue) => {
-    if (values.page === 0) return <Step1 {...{ values, setFieldValue }} />;
-    else if (values.page === 1) return <Step2 {...{ values, setFieldValue, allData: data }} />;
+    if (values.page === 0) return <Step1 {...{ setFieldValue }} />;
+    else if (values.page === 1) return <Step2 {...{ values, allData: data }} />;
     else if (values.page === 2) return <Step3 {...{ values, setFieldValue, allData: data }} />;
     else return <Review {...{ values }} />;
   };
@@ -58,7 +58,7 @@ const Myform = () => {
     <Formik
     initialValues={{
       meal: "",
-      people: 1,
+      people: null,
       restaurant: "",
       dishes: [{ name: "", servings: 1 }],
       page: 0,
@@ -78,6 +78,10 @@ const Myform = () => {
   
         if (values.page === 0 && values.meal === "") {
           toast("Please select a meal first");
+          return;
+        }
+        if (values.page === 0 && values.people === null) {
+          toast("Please enter people coming");
           return;
         }
         if (values.page === 1 && values.restaurant === "") {
@@ -102,7 +106,7 @@ const Myform = () => {
       };
   
       return (
-        <div className="bg-black w-full h-screen min-h-full flex flex-col justify-center py-36 sm:px-6 lg:px-8 z-100 mf:h-screen">
+        <div className="bg-[#2F3D7E] w-full h-screen min-h-full flex flex-col justify-center py-36 sm:px-6 lg:px-8 z-100 mf:h-screen">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
             <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
               <ul className="flex flex-wrap -mb-px">
@@ -111,8 +115,8 @@ const Myform = () => {
                     <span
                       className={`inline-block p-4 ${
                         values.page === index
-                          ? "text-blue-600 border-b-2 border-blue-600 dark:text-blue-500 dark:border-blue-500"
-                          : "border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                          ? "text-white border-b-2 border-white"
+                          : "border-b-2 border-transparent text-gray-400"
                       } rounded-t-lg`}
                     >
                       {step}
@@ -122,26 +126,26 @@ const Myform = () => {
               </ul>
             </div>
           </div>
-          <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <div className="mt-2 sm:mx-auto sm:w-full sm:max-w-md">
+            <div className="bg-[#FAEAEB] py-4 px-4 shadow sm:rounded-lg sm:px-10">
               <Form>
                 <div>{PageDisplay(values, setFieldValue)}</div>
-                <div className="flex flex-row gap-3 pt-8">
+                <div className="flex flex-row gap-3 pt-4">
                   <button
                     type="button"
                     disabled={values.page === 0}
                     onClick={() => {
                       setFieldValue("page", values.page - 1);
                     }}
-                    className="flex cursor-pointer w-full justify-center rounded-md border bg-[#BF202F] py-2 px-4 text-sm font-medium text-white hover:bg-orange-700 "
+                    className="flex cursor-pointer w-full justify-center rounded-md border bg-red-400 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 "
                   >
-                    Prev
+                    Previous
                   </button>
                   {values.page < titles.length - 1 ? (
                     <button
                       type="button"
                       onClick={handleNext}
-                      className="flex cursor-pointer w-full justify-center rounded-md border bg-[#BF202F] py-2 px-4 text-sm font-medium text-white hover:bg-orange-700 "
+                      className="flex cursor-pointer w-full justify-center rounded-md border bg-red-400 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 "
                     >
                       Next
                     </button>
@@ -152,7 +156,7 @@ const Myform = () => {
                         submitForm();
                         setFieldValue("page", 3);
                       }}
-                      className="flex cursor-pointer w-full justify-center rounded-md border bg-[#BF202F] py-2 px-4 text-sm font-medium text-white hover:bg-orange-700 "
+                      className="flex cursor-pointer w-full justify-center rounded-md border bg-red-400 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 "
                     >
                       Submit
                     </button>
