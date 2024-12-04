@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import { Field, ErrorMessage, Formik, Form } from "formik";
 import { step2Schema } from "../schemas";
 
-const Step2 = ({ values, allData, nextPage, prevPage }) => {
+const Step2 = ({ values, dishes, nextPage, prevPage }) => {
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
-    const restaurantsList = allData
+    const restaurantsList = dishes
       .filter((dish) => dish.availableMeals.includes(values.meal))
       .map((dish) => dish.restaurant);
     const uniqueRestaurants = [...new Set(restaurantsList)];
     setRestaurants(uniqueRestaurants);
-  }, [values.meal, allData]);
+  }, [values.meal, dishes]);
 
   return (
     <Formik

@@ -3,20 +3,20 @@ import { Field, ErrorMessage, Formik, Form } from "formik";
 import { step3Schema } from "../schemas";
 import { toast } from "react-toastify";
 
-const Step3 = ({ values, allData, nextPage, prevPage }) => {
+const Step3 = ({ values, dishes, nextPage, prevPage }) => {
   const [dishChoices, setDishChoices] = useState([]);
 
   useEffect(() => {
     if (values.restaurant) {
-      const choices = allData
+      const choices = dishes
         .filter((dish) => dish.restaurant === values.restaurant)
         .map((dish) => dish.name);
       setDishChoices(choices);
     }
-  }, [values.restaurant, allData]);
+  }, [values.restaurant, dishes]);
 
-  const calculateTotalServings = (dishes) =>
-    dishes
+  const calculateTotalServings = (allDishes) =>
+    allDishes
       .filter((dish) => dish.name.trim() !== "")
       .reduce((total, dish) => total + (parseInt(dish.servings) || 0), 0);
 

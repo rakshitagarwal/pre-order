@@ -32,7 +32,7 @@ const Myform = () => {
             values={formValues}
             nextPage={handleNextPage}
             prevPage={handlePrevPage}
-            allData={data}
+            dishes={data}
           />
         );
       case 2:
@@ -41,7 +41,7 @@ const Myform = () => {
             values={formValues}
             nextPage={handleNextPage}
             prevPage={handlePrevPage}
-            allData={data}
+            dishes={data}
           />
         );
       default:

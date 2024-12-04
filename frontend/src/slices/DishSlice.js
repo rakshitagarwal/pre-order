@@ -3,8 +3,8 @@ import { getAllDishes } from "../APIs/api_path";
 
 export const getDishes = createAsyncThunk("dishes/getall", async () => {
   try {
-    const response = await getAllDishes();
-    return response;
+    const { dishes } = await getAllDishes();
+    return dishes;
   } catch (error) {
     console.log(error);
     return;
