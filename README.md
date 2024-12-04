@@ -2,20 +2,20 @@
 
 To run this project, I suggest these steps:
 
-## In backend folder, create .env file to set environment variable and refer .env.example for database and port
+In backend folder, create .env file to set environment variable and refer .env.example for database and port
 
-## Using mongodb for database, I suggest to install mongoose first in your PC to not get any DB related error
+This project uses mongoDB, so if you are planning to use localhost URL for DB connection then install mongoose in your system.
 
-## go to backend in terminal and execute
+go to backend in terminal and execute
 ### `npm install`
 
-## now run this command
+now run this command
 ### `npm start`
 
-## go to frontend in terminal and execute
+go to frontend in terminal and execute
 ### `npm install`
 
-## now run this command
+now run this command
 ### `npm start`
 
-## visit localhost:3000 in your browser
+visit http://localhost:3000/ in your browser to interact with UI of this project
