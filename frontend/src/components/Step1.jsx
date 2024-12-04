@@ -6,7 +6,7 @@ const Step1 = ({ values, nextPage }) => {
     <Formik
       initialValues={{
         meal: values.meal || "",
-        people: values.people || null,
+        people: values.people || "",
       }}
       validationSchema={step1Schema}
       onSubmit={(values) => {

@@ -2,15 +2,11 @@ const express = require("express");
 const Meal = require("../models/Meal");
 const router = express.Router();
 
-router.get("/test", (req, res) => {
-  res.json("Test Works");
-});
-
 router.use('/alldishes', async (req, res) => {
   try {
     const response = await fetch('https://yudiz-solution.s3.ap-south-1.amazonaws.com/dishes.json');
     if (!response.ok) {
-      throw new Error(`Failed to fetch data: ${response.statusText}`);
+      throw new Error('Failed to fetch data');
     }
     const data = await response.json();
     res.json(data);

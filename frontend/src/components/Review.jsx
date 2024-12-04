@@ -22,7 +22,7 @@ const Review = ({ values, prevPage }) => {
         [
           "Dishes",
           dishes
-            .map((dish) => `${dish.name} (Servings: ${dish.servings})`)
+            .map((dish) => `${dish.name} : ${dish.servings}`)
             .join(", "),
         ],
       ]);
@@ -40,7 +40,7 @@ const Review = ({ values, prevPage }) => {
     >
       {() => (
         <Form className="space-y-3">
-          <div className="mt-1">
+          <>
             <label className="block text-sm font-medium text-gray-700 pb-1">
               Meal
             </label>
@@ -50,9 +50,9 @@ const Review = ({ values, prevPage }) => {
             >
               {values.meal || "Not selected"}
             </div>
-          </div>
+          </>
 
-          <div className="mt-0">
+          <>
             <label className="block text-sm font-medium text-gray-700 pb-1">
               People
             </label>
@@ -62,9 +62,9 @@ const Review = ({ values, prevPage }) => {
             >
               {values.people}
             </div>
-          </div>
+          </>
 
-          <div className="mt-0">
+          <>
             <label className="block text-sm font-medium text-gray-700 pb-1">
               Restaurant
             </label>
@@ -74,9 +74,9 @@ const Review = ({ values, prevPage }) => {
             >
               {values.restaurant || "Not selected"}
             </div>
-          </div>
+          </>
 
-          <div className="mt-0">
+          <>
             <label className="block text-sm font-medium text-gray-700 pb-1">
               Dishes
             </label>
@@ -92,7 +92,7 @@ const Review = ({ values, prevPage }) => {
                   </li>
                 ))}
             </ul>
-          </div>
+          </>
 
           <div className="flex justify-between mt-4">
             <button

@@ -57,7 +57,7 @@ const Step3 = ({ values, dishes, nextPage, prevPage }) => {
                     <Field
                       as="select"
                       name={`dishes[${index}].name`}
-                      className="bg-gray-50 w-48 border border-gray-300 rounded-lg p-1 mt-1"
+                      className="bg-gray-50 w-48 border border-gray-300 rounded-lg p-1.5 mt-1"
                     >
                       <option value="">---</option>
                       {dishChoices
